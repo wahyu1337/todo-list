@@ -1,4 +1,3 @@
-import { logsMessage } from "./logs";
 class Todo {
     // constructor
     constructor(title, description, dueDate, priority, isDone = false) {
@@ -21,17 +20,3 @@ class Todo {
         }
     }
 }
-
-class Project {
-    constructor (title, description) {
-        this.title = title;
-        this.description = description;
-        this.todos = [];
-    }
-
-    addTask (task) {
-        this.todos.push(task);
-        logsMessage(`${task} telah ditambahkan!.`);
-    }
-}
-
