@@ -1,3 +1,5 @@
+import { logsMessage } from "./../logs.js";
+
 class Todo {
     // constructor
     constructor(title, description, dueDate, priority, isDone = false) {
@@ -7,7 +9,6 @@ class Todo {
         this.priority = priority;
         this.isDone = isDone;
     }
-
     // Task Action
     completed() {
         // change action
@@ -20,3 +21,5 @@ class Todo {
         }
     }
 }
+
+export {Todo};

@@ -1,3 +1,6 @@
+import { logsMessage } from "./../logs.js";
+import { Todo } from "./todo.js";
+
 class Project {
     constructor (title, description) {
         this.title = title;
@@ -5,9 +8,11 @@ class Project {
         this.todos = [];
     }
     // add 
-    addTask (task) {
+    addTask (title, description, dueDate, priority, isDone) {
+        // add to Todo Logic
+        const task = new Todo(title, description, dueDate, priority, isDone);
+        // push into addTask
         this.todos.push(task);
-        logsMessage(`${task} telah ditambahkan!.`);
     }
     // remove 
     removeTask (task) {
