@@ -1,4 +1,6 @@
 import {Project} from "./classes/project.js";
+import DOM from "./dom.js";
+import style from "./style.css";
 
 const task = new Project("Olahraga" );
 task.newTask("Jogging", "Simple Run in morning", "14-03-2026", "Low");

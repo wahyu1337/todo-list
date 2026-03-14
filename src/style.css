@@ -1,0 +1,67 @@
+:root {
+    --purple-medium: #5c3dbf;
+    --dark-gray: #f0eded;
+    --font-roboto: roboto;
+    --font-sansSerif: sans-serif;
+    --text-white: #e6e6e6;
+    --h1-shadow: 2px 3px 4px rgba(10, 5, 3, 0.78);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: monospace, roboto, sans-serif;
+}
+
+.h1-shadow {
+    text-shadow: var(--h1-shadow);
+}
+
+#container {
+    display: grid;
+    height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px 2fr;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--purple-medium);
+}
+
+#header h1 {
+    color: var(--text-white);
+}
+
+#content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+}
+
+#sidebar {
+    display: flex;
+    justify-content: center;
+    background-color: var(--dark-gray);
+}
+
+#main-content {
+    display: grid;
+    grid-template-rows: 100px 2fr;
+    padding: 60px;
+}
+
+#main-title {
+    display: flex;
+    flex: 1;
+    border:solid 2px blue;
+}
+
+#main-title h1 {
+    text-shadow: 3px 5px 4px rgba(41,18,11,0.18);
+}
+
+#main-project {
+    border: 2px solid red;
+}
