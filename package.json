@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "For The Odin Project To-Do List",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "To-Do List TEST",
     "start": "webpack serve --config webpack.dev.js",
