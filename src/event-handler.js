@@ -1,5 +1,5 @@
 // load divAddProject var from  function
-const eventHandler = () => {
+const addProjects = () => {
     // sidebar add project button
     const divAddProject = document.querySelector("#sidebar-project");
     divAddProject.addEventListener("click", function(e){
@@ -11,4 +11,4 @@ const eventHandler = () => {
     })
 }
 
-export {eventHandler};
+export {addProjects};
