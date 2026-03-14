@@ -1,6 +1,8 @@
+// import module
 import {Project} from "./classes/project.js";
 import DOM from "./dom.js";
 import style from "./styles/style.css";
+import eventHandler from "./event-handler.js";
 
 const task = new Project("Olahraga" );
 task.newTask("Jogging", "Simple Run in morning", "14-03-2026", "Low");

@@ -12,6 +12,7 @@
   "author": "Ways",
   "license": "ISC",
   "devDependencies": {
+    "bootstrap-icons": "^1.13.1",
     "css-loader": "^7.1.4",
     "date-fns": "^4.1.0",
     "html-loader": "^5.1.0",
