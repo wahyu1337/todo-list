@@ -18,7 +18,9 @@ const titleHeader = document.createElement("h1");
 titleHeader.classList.add("h1-shadow");
 titleHeader.textContent = "TO-DO Application";
 
-// element content
+// element sidebar
+
+// element main content
 const mainTitleText = document.createElement("h1");
 mainTitleText.textContent = "PROJECT"
 
@@ -28,6 +30,8 @@ header.appendChild(titleHeader);
 // append content
 mainContent.appendChild(mainTitle);
 mainContent.appendChild(mainProject);
+
+// append sidebar
 
 // append main content
 mainTitle.appendChild(mainTitleText);

@@ -42,6 +42,8 @@
 
 #sidebar {
     display: flex;
+    flex-direction: row;
+    flex: 1;
     justify-content: center;
     background-color: var(--dark-gray);
 }
@@ -63,5 +65,7 @@
 }
 
 #main-project {
+    display: flex;
+    flex-direction: row;
     border: 2px solid red;
 }
