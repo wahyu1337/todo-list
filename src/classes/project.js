@@ -7,24 +7,25 @@ class Project {
         this.detail = [];
     }
     // add 
-    addTask (title, description, dueDate, priority, isDone) {
+    newTask (title, description, dueDate, priority, isDone) {
         // add to Todo Logic
         const task = new Todo(title, description, dueDate, priority, isDone);
         // push into addTask
         this.detail.push(task);
-        logsMessage("New Task Has been added!");
     }
     // remove 
-    removeTask (task) {
-        this.detail = this.detail.filter(item => item !== task);
-        logsMessage(`${task} has been remove from task!`)
+    deleteTask (task) {
+        this.detail = this.detail.filter(item => item.title !== task);
     }
     // search
     searchTask (task) {
-        logsMessage("Searching task...")
-        const findItem = this.detail.find(item => item === task) 
-        logsMessage(`Task founded. ${task}`);
+        const findItem = this.detail.find(item => item.title === task); 
         return findItem;
+    }
+
+    // get task
+    get allTask () {
+        console.log(this.detail);
     }
 }
 
