@@ -18,6 +18,7 @@
 
 .bi:hover {
     cursor: pointer;
+    background-color: #d4d4d4bb;
 }
 
 button {
@@ -65,6 +66,12 @@ button {
     gap: 6px;
     width: max-content;
     flex-shrink: 1;
+    transition: 0.15s;
+}
+
+#sidebar-project:hover {
+    background-color: #d4d4d4bb;
+    width: 250px;
 }
 
 #btn-add-project {
@@ -96,4 +103,65 @@ button {
     display: flex;
     flex-direction: row;
     border: 2px solid red;
+}
+
+/* POP UP MODAL */
+#overlay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.404); /* Black background with opacity */
+}
+
+#modal-box {
+    display: flex;
+    flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    width: 500px;
+    height: 250px;
+    border-radius: 14px;
+    background-color: #ffffffe8;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+#form-input {
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    font-weight: 600;
+    font-family: var(--font-roboto);
+    padding: 24px;
+    gap: 4px;
+}
+
+#btn-close {
+    width: min-content;
+    border: none;
+    padding: 0;
+    background-color: #ffffff00;
+    color: rgba(0, 0, 0, 0.548);
+    align-self: flex-end;
+    font-size: 1.3rem;
+}
+
+#form-input input {
+    width: 400px;
+    padding: 6px;
+}
+
+#btn-submit {
+    margin-top: 40px;
+    width: 120px;
+    align-self: center;
+    color: white;
+    border: none;
+    padding: 6px;
+    background-color: var(--purple-medium);
 }
