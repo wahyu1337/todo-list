@@ -15,9 +15,13 @@ const renderHeader = () => {
 
 const renderSidebar = () => {
     const sidebar = document.querySelector("#sidebar");
+    addNewProject(sidebar);
+    listProject(sidebar);
+}
 
-    // element sidebar
-    const divAddProject = document.createElement("div");
+const addNewProject = (parentElement) => {
+     // create element button sidebar
+    const divAddProject = document.createElement("div");   
     const btnAddProject = document.createElement("button");
     const iconAdd = document.createElement("i");
         // sidebar element's class  
@@ -30,33 +34,65 @@ const renderSidebar = () => {
     divAddProject.appendChild(iconAdd);
     divAddProject.appendChild(btnAddProject);
 
+   
     // append sidebar
-    sidebar.appendChild(divAddProject);
+    parentElement.appendChild(divAddProject);
+}
+
+const listProject = (parentElement) =>  {
+    // create element list project
+    const divListProject = document.createElement("div");
+    divListProject.id = "sidebar-list-project";
+
+    const divListProjectName = document.createElement("div");
+    divListProjectName.id = "list-project"
+    const li = document.createElement("li");
+
+    // divListProjectName appends
+    divListProjectName.appendChild(li);
+
+    // sidebar list project elements
+    const labelProject = document.createElement("label");
+    labelProject.textContent = "---MY PROJECTS---";
+
+    // sidebar list project append
+    divListProject.appendChild(labelProject);
+    divListProject.appendChild(divListProjectName);
+
+    // append to their parent
+    parentElement.appendChild(divListProject);
 }
 
 const renderMainContent = () => {
     // DOM structure
-    const mainContent = document.querySelector("#main-content");
-
-    // main content sub child
-    const mainTitle = document.createElement("div");    
-    const mainProject = document.createElement('div');
-        // set main content id
-        mainTitle.id = "main-title";
-        mainProject.id = "main-project";
-
-        // element main content
-        const mainTitleText = document.createElement("h1");
-        mainTitleText.textContent = "PROJECT";
-
-        // append content
-        mainContent.appendChild(mainTitle);
-        mainContent.appendChild(mainProject);
-
-        // append main content
-        mainTitle.appendChild(mainTitleText);
+    const mainContentElement = document.querySelector("#main-content");    
+    mainTitle(mainContentElement);
+    mainContent(mainContentElement);
 }
 
+const mainTitle = (parentElement) => {
+    // Parent sub child
+    const title = document.createElement("div");    
+        title.id = "main-title";
+    // main content title 
+    const titleText = document.createElement("h1");
+    titleText.textContent = "PROJECT";
+
+    // append
+    title.appendChild(titleText);
+    parentElement.appendChild(title);
+}
+
+const mainContent = (parentElement) => {
+    // main content sub child    
+    const mainProject = document.createElement('div');
+    // set main content id        
+    mainProject.id = "main-project";
+    // append content       
+    parentElement.appendChild(mainProject);       
+}
+
+// pop modal for add  projects
 const modalNewProjects = () => {
     const content = document.querySelector("#content");
     const overlay = document.createElement("div");

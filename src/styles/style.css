@@ -20,7 +20,6 @@
 
 .bi:hover {
     cursor: pointer;
-    background-color: #d4d4d4bb;
 }
 
 button {
@@ -51,7 +50,7 @@ button {
 
 #content {
     display: grid;
-    grid-template-columns: minmax(min-content, 300px) 1fr;
+    grid-template-columns: minmax(max-content, 300px) 1fr;
 }
 
 #sidebar {
@@ -71,12 +70,33 @@ button {
     transition: 0.15s;
 }
 
+#sidebar-project:hover {
+    scale: 1.05;
+}
+
 #btn-add-project {
     border: none;
     color: var(--purple-medium);
     font-size: 1.2rem;
     font-weight: 600;
     font-family: var(--font-roboto);
+}
+
+#sidebar-list-project {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+#sidebar-lsit-project label {
+    text-align: center;
+}
+
+@media (max-width: 480px)  {
+    #sidebar-list-project {
+        justify-content: flex-start;
+    }
 }
 
 #main-content {
