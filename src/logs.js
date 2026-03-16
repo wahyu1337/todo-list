@@ -4,4 +4,8 @@ function logsMessage (message) {
     console.log(message)
 }
 
-export {logsMessage};
+function logsProject (project) {{
+    console.log(project);
+}}
+
+export {logsMessage, logsProject};
