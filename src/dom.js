@@ -2,7 +2,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const renderHeader = () => {
     // DOM structure
-    const container = document.querySelector("#container");
     const header = document.querySelector("#header");
 
     // element header
@@ -15,7 +14,6 @@ const renderHeader = () => {
 }
 
 const renderSidebar = () => {
-    const container = document.querySelector("#container");
     const sidebar = document.querySelector("#sidebar");
 
     // element sidebar
@@ -38,7 +36,6 @@ const renderSidebar = () => {
 
 const renderMainContent = () => {
     // DOM structure
-    const content = document.querySelector("#content");
     const mainContent = document.querySelector("#main-content");
 
     // main content sub child
@@ -60,7 +57,7 @@ const renderMainContent = () => {
         mainTitle.appendChild(mainTitleText);
 }
 
-const modalNewProject = () => {
+const modalNewProjects = () => {
     const content = document.querySelector("#content");
     const overlay = document.createElement("div");
     overlay.id = "overlay";
@@ -71,19 +68,25 @@ const modalNewProject = () => {
         overlay.appendChild(modalBox);
     
     // modal box element
+    // form input
     const formInput = document.createElement("form");
     formInput.id = "form-input";
+    // btn close
     const btnClose = document.createElement("button");
     btnClose.id = "btn-close";
+    btnClose.type = "button";
     btnClose.textContent = "X";
+    // label
     const projectLabel = document.createElement("label");
     projectLabel.htmlFor = "project-name";
     projectLabel.textContent = "Project Title";
     const inputProjectName = document.createElement("input");
     inputProjectName.id = "project-name";
+    inputProjectName.required = true;
     inputProjectName.type = "text";
     const btnSubmit = document.createElement("button");
     btnSubmit.id = "btn-submit";
+    btnSubmit.type = "submit";
     btnSubmit.textContent = "SUBMIT";
         // append 
         modalBox.appendChild(formInput);
@@ -91,7 +94,6 @@ const modalNewProject = () => {
         formInput.appendChild(projectLabel);
         formInput.appendChild(inputProjectName);
         formInput.appendChild(btnSubmit);
-
 }
 // export
-export {renderHeader, renderSidebar, renderMainContent, modalNewProject};
+export {renderHeader, renderSidebar, renderMainContent, modalNewProjects};

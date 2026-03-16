@@ -1,6 +1,7 @@
 :root {
     --purple-medium: #5c3dbf;
     --dark-gray: #f0eded;
+    --hover-dark-gray: #d4d4d4bb;
     --font-roboto: roboto;
     --font-sansSerif: sans-serif;
     --text-white: #e6e6e6;
@@ -14,6 +15,7 @@
 }
 .bi {
     color: #5c3dbf;
+    font-size: 1.3rem;
 }
 
 .bi:hover {
@@ -69,16 +71,10 @@ button {
     transition: 0.15s;
 }
 
-#sidebar-project:hover {
-    background-color: #d4d4d4bb;
-    width: 250px;
-}
-
 #btn-add-project {
     border: none;
-    height: min-content;
     color: var(--purple-medium);
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: 600;
     font-family: var(--font-roboto);
 }
@@ -110,7 +106,7 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
+    position: fixed;    
     top: 0;
     left: 0;
     z-index: 1000;
