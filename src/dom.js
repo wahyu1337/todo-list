@@ -1,4 +1,5 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
+import {projects} from "./state.js"
 
 const renderHeader = () => {
     // DOM structure
@@ -45,14 +46,9 @@ const listProject = (parentElement) =>  {
     divListProject.id = "sidebar-list-project";
 
     const divListProjectName = document.createElement("div");
-    divListProjectName.id = "list-project"
-    const li = document.createElement("li");
-
-    // divListProjectName appends
-    divListProjectName.appendChild(li);
-
+    divListProjectName.id = "list-project";
     // sidebar list project elements
-    const labelProject = document.createElement("label");
+    const labelProject = document.createElement("p");
     labelProject.textContent = "---MY PROJECTS---";
 
     // sidebar list project append
@@ -61,6 +57,21 @@ const listProject = (parentElement) =>  {
 
     // append to their parent
     parentElement.appendChild(divListProject);
+}
+
+const addListProject = (projects) => {
+    // create element
+    const divList = document.querySelector("#list-project")
+    
+    projects.forEach(project => {
+        // create list element
+        const li = document.createElement("li");
+        // make list into project title's name
+        li.textContent = project.title;
+        
+        // append
+        divList.appendChild(li);    
+    });
 }
 
 const renderMainContent = () => {
@@ -131,5 +142,6 @@ const modalNewProjects = () => {
         formInput.appendChild(inputProjectName);
         formInput.appendChild(btnSubmit);
 }
+
 // export
-export {renderHeader, renderSidebar, renderMainContent, modalNewProjects};
+export {renderHeader, renderSidebar, addListProject, renderMainContent, modalNewProjects};

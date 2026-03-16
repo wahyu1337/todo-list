@@ -4,10 +4,10 @@ import { logsProject } from "./logs.js";
 
 const projects = [];
 
-const currentState = (name) => {
+const addProject = (name) => {
     const project = new Project(name);
     projects.push(project);
     logsProject(projects);
 }
 
-export {currentState};
+export {addProject, projects};

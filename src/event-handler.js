@@ -1,6 +1,6 @@
 // load add project modal
-import { modalNewProjects } from "./dom.js";
-import { currentState } from "./state.js";
+import { modalNewProjects, listProject, addListProject } from "./dom.js";
+import { addProject, projects } from "./state.js";
 import { logsMessage } from "./logs.js";
 
 // load divAddProject var from  function
@@ -32,13 +32,16 @@ const modalBox = () => {
     });
 
     btnSubmit.addEventListener("click", function(e) {
-        // avoid reloading page
+        // prevent default behavior
         e.preventDefault();
         // project name
         const projectName = document.getElementById("project-name").value;
+        const getListProject = document.querySelector("#list-project");
+        getListProject.textContent = "";
         // conditional logs
         if (projectName !== "") {
-            currentState(projectName);
+            addProject(projectName);
+            addListProject(projects);
             logsMessage("New project added!");
             alert("Projects added!");
             form.reset();
