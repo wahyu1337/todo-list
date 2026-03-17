@@ -2,12 +2,14 @@ import { logsMessage } from "./../logs.js";
 
 class Todo {
     // constructor
-    constructor(title, description, dueDate, priority, isDone = false) {
+    constructor(title, description, dueDate, priority, notes = "", checkList = [], isDone = false) {
         this.title = title;
         this.description = description;
         this.dueDate = dueDate;
         this.priority = priority;
         this.isDone = isDone;
+        this.notes = notes;
+        this.checkList = checkList;
     }
     // Task Action
     completed() {
@@ -19,6 +21,10 @@ class Todo {
         } else {
             logsMessage("Task is completed!.");
         }
+    }
+    // check completed item
+    addCheckedItem (item) {
+        this.checkList.push(item)
     }
 }
 

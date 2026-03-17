@@ -79,6 +79,7 @@ const renderMainContent = () => {
     const mainContentElement = document.querySelector("#main-content");    
     mainTitle(mainContentElement);
     mainContent(mainContentElement);
+    modalNewTask();
 }
 
 const mainTitle = (parentElement) => {
@@ -101,6 +102,29 @@ const mainContent = (parentElement) => {
     mainProject.id = "main-project";
     // append content       
     parentElement.appendChild(mainProject);       
+}
+
+const modalNewTask = () => {
+    // parent
+    const mainProject = document.querySelector("#main-project");
+    // create tructure.
+    const divAddTask = document.createElement("div");
+    divAddTask.id = "divAddTask";
+
+    // create button
+    const btnAddTask = document.createElement("button");
+    btnAddTask.id = "btnAddTask";
+    btnAddTask.textContent = "Add Task";
+
+    // create icon
+    const iconAdd = document.createElement("i");
+    iconAdd.classList.add("bi");
+    iconAdd.classList.add("bi-plus-lg");
+
+    // append
+    mainProject.appendChild(divAddTask);
+    divAddTask.appendChild(iconAdd);
+    divAddTask.appendChild(btnAddTask);
 }
 
 // pop modal for add  projects

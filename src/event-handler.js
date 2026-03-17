@@ -4,13 +4,13 @@ import { addProject, projects } from "./state.js";
 import { logsMessage } from "./logs.js";
 
 // load divAddProject var from  function
-const addModalBox = () => {
+const addNewProjects = () => {
     // sidebar add project button
     const divAddProject = document.querySelector("#sidebar-project");
     divAddProject.addEventListener("click", function(e){
         if (e.target.closest("#sidebar-project") !== null) {
             modalNewProjects();
-            modalBox();
+            newProjectBox();
             console.log("adding new project...");
         } else {
             console.log("NULL");
@@ -18,7 +18,8 @@ const addModalBox = () => {
     })
 }
 
-const modalBox = () => {
+
+const newProjectBox = () => {
     // sidebar project's dom
     const form = document.querySelector("#form-input");
     const overlay = document.querySelector("#overlay");
@@ -51,4 +52,4 @@ const modalBox = () => {
     });
 }
 
-export {addModalBox, modalBox};
+export {addNewProjects, newProjectBox};

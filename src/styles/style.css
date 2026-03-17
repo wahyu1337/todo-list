@@ -1,5 +1,6 @@
 :root {
     --purple-medium: #5c3dbf;
+    --purple-light: #714ceb;
     --dark-gray: #f0eded;
     --hover-dark-gray: #d4d4d4bb;
     --font-roboto: roboto;
@@ -11,10 +12,16 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: monospace, roboto, sans-serif;
+    font-family:  monospace, roboto, sans-serif;
 }
+
+li {
+    width: max-content;
+    cursor: pointer;
+}
+
 .bi {
-    color: #5c3dbf;
+    color: var(--purple-medium);
     font-size: 1.3rem;
 }
 
@@ -101,13 +108,12 @@ button {
 
 #main-content {
     display: grid;
-    grid-template-rows: 100px 2fr;
+    grid-template-rows: 100px 1fr;
     padding: 60px;
 }
 
 #main-title {
     display: flex;
-    flex: 1;
     border:solid 2px blue;
 }
 
@@ -117,9 +123,31 @@ button {
 
 #main-project {
     display: flex;
-    flex-direction: row;
-    border: 2px solid red;
+    align-items: flex-start;
 }
+
+#divAddTask {
+    display: flex;
+    flex-direction: row;
+    transition: 0.2s;
+}
+
+#divAddTask .bi-plus-lg {
+    font-size: 1.5rem;
+    color: var(--purple-light);
+}
+
+#divAddTask button {
+    border: none;
+    background-color: none;
+    padding: 6px;
+    background-color: white;
+}
+
+#divAddTask:hover {
+    scale: 1.04;
+}
+
 
 /* POP UP MODAL */
 #overlay {

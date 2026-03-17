@@ -7,9 +7,9 @@ class Project {
         this.detail = [];
     }
     // add 
-    newTask (title, description, dueDate, priority, isDone) {
+    newTask (title, description, dueDate, priority, notes, checkList, isDone) {
         // add to Todo Logic
-        const task = new Todo(title, description, dueDate, priority, isDone);
+        const task = new Todo(title, description, dueDate, priority, notes, checkList, isDone);
         // push into addTask
         this.detail.push(task);
     }
