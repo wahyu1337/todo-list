@@ -1,5 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {projects} from "./state.js"
+import {format, compareAsc} from "date-fns";
 
 const renderHeader = () => {
     // DOM structure
@@ -76,10 +77,9 @@ const addListProject = (projects) => {
 
 const renderMainContent = () => {
     // DOM structure
-    const mainContentElement = document.querySelector("#main-content");    
+    const mainContentElement = document.querySelector("#main-content");
     mainTitle(mainContentElement);
-    mainContent(mainContentElement);
-    modalNewTask();
+    mainProjectContent(mainContentElement);
 }
 
 const mainTitle = (parentElement) => {
@@ -95,18 +95,19 @@ const mainTitle = (parentElement) => {
     parentElement.appendChild(title);
 }
 
-const mainContent = (parentElement) => {
+const mainProjectContent = (parentElement) => {
     // main content sub child    
     const mainProject = document.createElement('div');
     // set main content id        
     mainProject.id = "main-project";
     // append content       
-    parentElement.appendChild(mainProject);       
+    parentElement.appendChild(mainProject);
+    
+    // append the add task button into main project
+    addNewTasks(mainProject);
 }
 
-const modalNewTask = () => {
-    // parent
-    const mainProject = document.querySelector("#main-project");
+const addNewTasks = (parentElement) => {
     // create tructure.
     const divAddTask = document.createElement("div");
     divAddTask.id = "divAddTask";
@@ -122,7 +123,7 @@ const modalNewTask = () => {
     iconAdd.classList.add("bi-plus-lg");
 
     // append
-    mainProject.appendChild(divAddTask);
+    parentElement.appendChild(divAddTask);
     divAddTask.appendChild(iconAdd);
     divAddTask.appendChild(btnAddTask);
 }
@@ -167,5 +168,112 @@ const modalNewProjects = () => {
         formInput.appendChild(btnSubmit);
 }
 
+const modalNewTasks = () => {
+    // parent element to appending later
+    const content = document.querySelector("#content");
+    const overlay = document.createElement("div");
+    overlay.id = "overlayTasks";
+    const modalBox = document.createElement("div");
+    modalBox.id = "modal-boxTasks";
+
+    content.appendChild(overlay);
+    overlay.appendChild(modalBox);
+    // format for time
+    format(new Date(), "dd-MM-yyy");
+    // priority holder
+    const priorityValue = [
+        {id: "p0", name: "HIGH"},
+        {id: "p1", name: "NORMAL"},
+        {id: "p3", name: "LOW"}
+    ];
+
+    // forms
+    const taskForm = document.createElement("form");
+    taskForm.id = "form-inputTasks"
+    // create the element
+    // title
+    const divTitle = document.createElement("div");
+    const titleLabel = document.createElement("label");
+    titleLabel.textContent = "TITLE";
+    titleLabel.htmlFor = "title";
+    const inputTitle =  document.createElement("input");
+    inputTitle.type = "text";
+    inputTitle.id = "title";
+    divTitle.id = "divTitle";
+    divTitle.appendChild(titleLabel);
+    divTitle.appendChild(inputTitle);
+    // description
+    const divDescription = document.createElement("div");
+    const descriptionLabel = document.createElement("label");
+    descriptionLabel.textContent = "DESCRIPTION";
+    descriptionLabel.htmlFor = "description";
+    const inputDescription = document.createElement("input");
+    inputDescription.type = "text";
+    inputDescription.id = "description";
+    divDescription.id = "divDescription";
+    divDescription.appendChild(descriptionLabel);
+    divDescription.appendChild(inputDescription);
+    // due date
+    const divDueDate = document.createElement("div");
+    const dueDateLabel = document.createElement("label");
+    dueDateLabel.textContent = "Due Date";
+    dueDateLabel.htmlFor = "dueDate";
+    const inputDueDate = document.createElement("input");
+    inputDueDate.type = "date";
+    inputDueDate.id = "dueDate";
+    divDueDate.id = "divDueDate";
+    divDueDate.appendChild(dueDateLabel);
+    divDueDate.appendChild(inputDueDate);
+    // priority selection
+    const divPriority = document.createElement("div");
+    const priorityLabel = document.createElement("label");
+    priorityLabel.textContent = "PRIORITY";
+    priorityLabel.htmlFor = "priority"
+    const inputPriority =  document.createElement("select");
+    inputPriority.id = "priority";
+    for (let i = 0; i < priorityValue.length; i++) {
+        const priorityOption = document.createElement("option");
+        priorityOption.value = priorityValue[i].id;
+        priorityOption.textContent = priorityValue[i].name;
+        // append
+        inputPriority.appendChild(priorityOption);
+    }
+    divPriority.id = "divPriority";
+    divPriority.appendChild(priorityLabel);
+    divPriority.appendChild(inputPriority);
+    // notes
+    const divNotes = document.createElement("div");
+    const notesLabel = document.createElement("label");
+    notesLabel.textContent = "NOTES";
+    notesLabel.htmlFor = "notes";
+    const inputNotes = document.createElement("input");
+    inputNotes.type = "text";
+    inputNotes.id = "notes";
+    divNotes.id = "divNotes"
+    divNotes.appendChild(notesLabel);
+    divNotes.appendChild(inputNotes);
+
+    // button submit & close
+    const btnClose = document.createElement("button");
+    btnClose.type = "button";
+    btnClose.textContent = "X";
+    btnClose.id = "btn-close";
+    const btnSubmit = document.createElement("button");
+    btnSubmit.type = "submit";
+    btnSubmit.textContent = "SUBMIT";
+    btnSubmit.id = "btn-submit";
+
+    // append from parent
+    modalBox.appendChild(taskForm);
+    // append task form element
+    taskForm.appendChild(btnClose);
+    taskForm.appendChild(divTitle);
+    taskForm.appendChild(divDescription);
+    taskForm.appendChild(divDueDate);
+    taskForm.appendChild(divPriority);
+    taskForm.appendChild(divNotes);
+    taskForm.appendChild(btnSubmit);
+}
+
 // export
-export {renderHeader, renderSidebar, addListProject, renderMainContent, modalNewProjects};
+export {renderHeader, renderSidebar, addListProject, renderMainContent, modalNewProjects, modalNewTasks};
