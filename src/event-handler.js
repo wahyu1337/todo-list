@@ -1,5 +1,5 @@
 // load add project modal
-import { modalNewProjects, listProject, addListProject } from "./dom.js";
+import { modalNewProjects, addListProject } from "./dom.js";
 import { addProject, projects } from "./state.js";
 import { logsMessage } from "./logs.js";
 
