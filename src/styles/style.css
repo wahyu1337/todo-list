@@ -195,14 +195,22 @@ button {
 #form-inputTasks {
     gap: 24px;
     padding: 36px;
+    padding-top: 20px;
+    padding-bottom: 24px;
 }
 
 #form-inputTasks input, #form-inputTasks select{
     width: 350px;
+    height: 30px;
+    padding: 6px;
 }
 
 #divDueDate input, #divPriority select {
     width: max-content;
+}
+
+#divPriority select {
+    height: 40px;
 }
 
 #btn-close {
