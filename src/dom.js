@@ -199,6 +199,7 @@ const modalNewTasks = () => {
     const inputTitle =  document.createElement("input");
     inputTitle.type = "text";
     inputTitle.id = "title";
+    inputTitle.required = true;
     divTitle.id = "divTitle";
     divTitle.appendChild(titleLabel);
     divTitle.appendChild(inputTitle);
@@ -210,6 +211,7 @@ const modalNewTasks = () => {
     const inputDescription = document.createElement("input");
     inputDescription.type = "text";
     inputDescription.id = "description";
+    inputDescription.required = true;
     divDescription.id = "divDescription";
     divDescription.appendChild(descriptionLabel);
     divDescription.appendChild(inputDescription);
@@ -244,7 +246,7 @@ const modalNewTasks = () => {
     // notes
     const divNotes = document.createElement("div");
     const notesLabel = document.createElement("label");
-    notesLabel.textContent = "NOTES";
+    notesLabel.textContent = "NOTES(Optional)";
     notesLabel.htmlFor = "notes";
     const inputNotes = document.createElement("input");
     inputNotes.type = "text";

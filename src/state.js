@@ -1,13 +1,21 @@
 // current state data
 import { Project } from "./classes/project.js";
-import { logsProject } from "./logs.js";
+import { Todo } from "./classes/todo.js";
+import { logsMessage, logsProject } from "./logs.js";
 
 const projects = [];
+const tasks = [];
 
-const addProject = (name) => {
+const addProjects = (name) => {
     const project = new Project(name);
     projects.push(project);
-    logsProject(projects);
-}
+    logsMessage(projects);
+};
 
-export {addProject, projects};
+const addTasks = (name, description, dueDate, priority, notes) => {
+    const task = new Todo(name, description, dueDate, priority, notes);
+    tasks.push(task);
+    logsMessage(tasks);
+};
+
+export {projects, tasks, addProjects, addTasks};
