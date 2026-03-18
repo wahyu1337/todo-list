@@ -1,5 +1,5 @@
 // load add project modal
-import { modalNewProjects, addListProject, modalNewTasks } from "./dom.js";
+import { modalNewProjects, addListProject, modalNewTasks, mainProjectTasks } from "./dom.js";
 import { addProjects, addTasks, projects } from "./state.js";
 import { logsMessage } from "./logs.js";
 
@@ -71,6 +71,8 @@ const newTasksBox = () => {
     const overlay = document.querySelector("#overlayTasks");
     const btnClose = document.querySelector("#btn-close");
     const btnSubmit = document.querySelector("#btn-submit");
+     // form manipulation for resetting after submit
+    const form = document.querySelector("#form-inputTasks");
 
     // close button
     btnClose.addEventListener("click", function() {
@@ -89,6 +91,7 @@ const newTasksBox = () => {
         const priorityValue = document.getElementById("priority").value;
         const notesValue = document.getElementById("notes").value;
 
+        
         addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
         logsMessage(`New Task Added
 Title: ${titleValue},
@@ -96,8 +99,20 @@ Description: ${descriptionValue},
 Due Date: ${dueDateValue},
 Priority Level: ${priorityValue},
 Notes: ${notesValue}
-            `);
+                `);
+        mainProjectTasks(titleValue, descriptionValue);
+        taskDetails();
+        form.reset();
+    });
+
+};
+
+const taskDetails = () => {
+    const taskItem = document.querySelector("#divTaskItem");
+
+    taskItem.addEventListener("click", function(e) {
+        console.log("test click: " + e.target.closest("#divTaskItem"));
     });
 };
 
-export {addNewProjects, addNewTasks};
+export {addNewProjects, addNewTasks, taskDetails};

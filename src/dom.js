@@ -80,6 +80,7 @@ const renderMainContent = () => {
     const mainContentElement = document.querySelector("#main-content");
     mainTitle(mainContentElement);
     mainProjectContent(mainContentElement);
+    addNewTasks(mainContentElement);
 }
 
 const mainTitle = (parentElement) => {
@@ -102,9 +103,34 @@ const mainProjectContent = (parentElement) => {
     mainProject.id = "main-project";
     // append content       
     parentElement.appendChild(mainProject);
-    
-    // append the add task button into main project
-    addNewTasks(mainProject);
+
+}
+
+const mainProjectTasks = (titleValue, descriptionValue) => {
+    // main parent
+    const mainProject = document.querySelector("#main-project");
+
+    // sub parent
+    const divTaskItem = document.createElement("div");
+    divTaskItem.id = "divTaskItem";
+    // element
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "X";
+    const taskTitle = document.createElement("p");
+    taskTitle.id = "taskTitle";
+    taskTitle.textContent = titleValue;
+    const taskDescription = document.createElement("p");
+    taskDescription.id = "taskDescription";
+    taskDescription.textContent = descriptionValue;
+
+    const checkedButton = document.createElement('');
+    // append element to their sub parent
+    divTaskItem.appendChild(deleteBtn);
+    divTaskItem.appendChild(taskTitle);
+    divTaskItem.appendChild(taskDescription);
+
+    // appen sub parent to  main parent
+    mainProject.appendChild(divTaskItem);
 }
 
 const addNewTasks = (parentElement) => {
@@ -278,4 +304,4 @@ const modalNewTasks = () => {
 }
 
 // export
-export {renderHeader, renderSidebar, addListProject, renderMainContent, modalNewProjects, modalNewTasks};
+export {renderHeader, renderSidebar, addListProject, renderMainContent, mainProjectTasks, modalNewProjects, modalNewTasks};
