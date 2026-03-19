@@ -85,16 +85,16 @@ const newTasksBox = () => {
         // prevent default behavior
         e.preventDefault();
         // get each task form value
-        const titleValue = document.getElementById("title").value;
-        const descriptionValue = document.getElementById("description").value;
-        const dueDateValue = document.getElementById("dueDate").value;
-        const priorityValue = document.getElementById("priority").value;
-        const notesValue = document.getElementById("notes").value;
+        const titleValue = document.querySelector("#title").value;
+        const descriptionValue = document.querySelector("#description").value;
+        const dueDateValue = document.querySelector("#dueDate").value;
+        const priorityValue = document.querySelector("#priority").value;
+        const notesValue = document.querySelector("#notes").value;
         mainProjectTasks(titleValue, descriptionValue, dueDateValue);
         // set elements dom that been render.
-        const titleElement = document.getElementById("taskTitle");
-        const descriptionElement = document.getElementById("taskDescription");
-        const dueDateElement = document.getElementById("taskDueDate");
+        const titleElement = document.querySelectorAll(".taskTitle");
+        const descriptionElement = document.querySelectorAll(".taskDescription");
+        const dueDateElement = document.querySelectorAll(".taskDueDate");
         addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
 
         // ----------------------------------------------
@@ -110,7 +110,7 @@ Notes: ${notesValue}
         if (priorityValue === "p0") {
             // priority condition
             // HIGH
-            titleElement.style.color = "red";
+            titleElement.at(-1).style.color = "red";
             descriptionElement.style.color = "red";
             dueDateElement.textContent = `Due Date: ${dueDateValue}`;
             dueDateElement.style.color = "red";

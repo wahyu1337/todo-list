@@ -126,12 +126,15 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate) => {
     deleteBtn.classList.add("bi-trash");
     const taskTitle = document.createElement("h3");
     taskTitle.id = "taskTitle";
+    taskTitle.classList.add("taskTitle");
     taskTitle.textContent = titleValue;
     const taskDescription = document.createElement("p");
     taskDescription.id = "taskDescription";
+    taskDescription.classList.add("taskDescription");
     taskDescription.textContent = descriptionValue;
     const taskDueDate = document.createElement("p");
     taskDueDate.id = "taskDueDate";
+    taskDueDate.classList.add("taskDueDate");
     taskDueDate.textContent = dueDate;
 
     const checkedButton = document.createElement('input');
@@ -241,6 +244,7 @@ const modalNewTasks = () => {
     const inputTitle =  document.createElement("input");
     inputTitle.type = "text";
     inputTitle.id = "title";
+    inputTitle
     inputTitle.required = true;
     divTitle.id = "divTitle";
     divTitle.appendChild(titleLabel);
