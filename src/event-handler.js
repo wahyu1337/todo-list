@@ -90,21 +90,34 @@ const newTasksBox = () => {
         const dueDateValue = document.getElementById("dueDate").value;
         const priorityValue = document.getElementById("priority").value;
         const notesValue = document.getElementById("notes").value;
-
-        
+        mainProjectTasks(titleValue, descriptionValue, dueDateValue);
+        // set elements dom that been render.
+        const titleElement = document.getElementById("taskTitle");
+        const descriptionElement = document.getElementById("taskDescription");
+        const dueDateElement = document.getElementById("taskDueDate");
         addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
+
+        // ----------------------------------------------
         logsMessage(`New Task Added
 Title: ${titleValue},
 Description: ${descriptionValue},
 Due Date: ${dueDateValue},
 Priority Level: ${priorityValue},
 Notes: ${notesValue}
-                `);
-        mainProjectTasks(titleValue, descriptionValue, dueDateValue);
+                `);                
+        // --------------------------------------------------        
+        // change color text depend on the priority
+        if (priorityValue === "p0") {
+            // priority condition
+            // HIGH
+            titleElement.style.color = "red";
+            descriptionElement.style.color = "red";
+            dueDateElement.textContent = `Due Date: ${dueDateValue}`;
+            dueDateElement.style.color = "red";
+        }
         taskDetails();
         form.reset();
     });
-
 };
 
 const taskDetails = () => {
