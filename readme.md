@@ -7,6 +7,7 @@ PACKAGE INSTALL
 -- style-loader css-loader (for css loader)
 -- html-loader (html image loader)
 -- webpack-merge (for development & production seperation)
+-- date-fns
 
 Misc
 - squoosh.app (image size reduction & for better performance)
