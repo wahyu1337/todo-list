@@ -114,8 +114,11 @@ const mainProjectTasks = (titleValue, descriptionValue) => {
     const divTaskItem = document.createElement("div");
     divTaskItem.id = "divTaskItem";
     // element
-    const deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "X";
+    const editBtn = document.createElement("i");
+    const deleteBtn = document.createElement("i");
+    deleteBtn.id = "deleteTasks"
+    deleteBtn.classList.add("bi");
+    deleteBtn.classList.add("bi-trash");
     const taskTitle = document.createElement("p");
     taskTitle.id = "taskTitle";
     taskTitle.textContent = titleValue;
@@ -123,11 +126,13 @@ const mainProjectTasks = (titleValue, descriptionValue) => {
     taskDescription.id = "taskDescription";
     taskDescription.textContent = descriptionValue;
 
-    const checkedButton = document.createElement('');
+    const checkedButton = document.createElement('input');
+    checkedButton.type = "checkbox";
     // append element to their sub parent
     divTaskItem.appendChild(deleteBtn);
     divTaskItem.appendChild(taskTitle);
     divTaskItem.appendChild(taskDescription);
+    divTaskItem.appendChild(checkedButton);
 
     // appen sub parent to  main parent
     mainProject.appendChild(divTaskItem);

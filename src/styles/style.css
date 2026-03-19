@@ -115,6 +115,7 @@ button {
 
 #main-title {
     display: flex;
+    align-items: center;
     border:solid 2px blue;
 }
 
@@ -132,6 +133,7 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 150px;
     max-height: max-content;
     padding: 12px;
     background-color: white;
@@ -140,8 +142,13 @@ button {
     
 }
 
-#divTaskItem:hover {
-    cursor: pointer;
+#deleteTasks {
+    border: none;
+    scale: 0.9;
+}
+
+#divTaskItem p {
+    cursor: default;
 }
 
 #divAddTask {
