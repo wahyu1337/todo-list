@@ -100,7 +100,7 @@ Due Date: ${dueDateValue},
 Priority Level: ${priorityValue},
 Notes: ${notesValue}
                 `);
-        mainProjectTasks(titleValue, descriptionValue);
+        mainProjectTasks(titleValue, descriptionValue, dueDateValue);
         taskDetails();
         form.reset();
     });

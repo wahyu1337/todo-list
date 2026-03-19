@@ -106,7 +106,7 @@ const mainProjectContent = (parentElement) => {
 
 }
 
-const mainProjectTasks = (titleValue, descriptionValue) => {
+const mainProjectTasks = (titleValue, descriptionValue, dueDate) => {
     // main parent
     const mainProject = document.querySelector("#main-project");
 
@@ -114,24 +114,35 @@ const mainProjectTasks = (titleValue, descriptionValue) => {
     const divTaskItem = document.createElement("div");
     divTaskItem.id = "divTaskItem";
     // element
+    const divEditDelete = document.createElement("div");
+    divEditDelete.id = "edit-delete";
     const editBtn = document.createElement("i");
+    editBtn.id = "edtBtn";
+    editBtn.classList.add("bi");
+    editBtn.classList.add("bi-pencil-square");
     const deleteBtn = document.createElement("i");
     deleteBtn.id = "deleteTasks"
     deleteBtn.classList.add("bi");
     deleteBtn.classList.add("bi-trash");
-    const taskTitle = document.createElement("p");
+    const taskTitle = document.createElement("h3");
     taskTitle.id = "taskTitle";
     taskTitle.textContent = titleValue;
     const taskDescription = document.createElement("p");
     taskDescription.id = "taskDescription";
     taskDescription.textContent = descriptionValue;
+    const taskDueDate = document.createElement("p");
+    taskDueDate.id = "taskDueDate";
+    taskDueDate.textContent = dueDate;
 
     const checkedButton = document.createElement('input');
     checkedButton.type = "checkbox";
     // append element to their sub parent
-    divTaskItem.appendChild(deleteBtn);
+    divTaskItem.appendChild(divEditDelete);
+        divEditDelete.appendChild(editBtn);
+        divEditDelete.appendChild(deleteBtn);
     divTaskItem.appendChild(taskTitle);
     divTaskItem.appendChild(taskDescription);
+    divTaskItem.appendChild(taskDueDate);
     divTaskItem.appendChild(checkedButton);
 
     // appen sub parent to  main parent
