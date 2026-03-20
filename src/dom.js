@@ -1,6 +1,7 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {projects} from "./state.js"
 import {format, compareAsc} from "date-fns";
+import { logsMessage } from "./logs.js";
 
 const renderHeader = () => {
     // DOM structure
@@ -147,6 +148,12 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate) => {
     divTaskItem.appendChild(taskDescription);
     divTaskItem.appendChild(taskDueDate);
     divTaskItem.appendChild(checkedButton);
+
+    // listener for delete button 
+    deleteBtn.addEventListener("click", function() {
+        deleteBtn.parentElement.parentElement.remove();
+        logsMessage(`deleting ${taskTitle}`);
+    });
 
     // appen sub parent to  main parent
     mainProject.appendChild(divTaskItem);

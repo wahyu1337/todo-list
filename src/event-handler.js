@@ -97,9 +97,6 @@ const newTasksBox = () => {
         const dueDateElement = document.querySelectorAll(".taskDueDate");
         addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
 
-        console.log(titleElement);
-        logsMessage(titleElement);
-
         // ----------------------------------------------
         logsMessage(`New Task Added
 Title: ${titleValue},
@@ -130,16 +127,8 @@ Notes: ${notesValue}
             dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
             dueDateElement[dueDateElement.length - 1].style.color = "black";   
         }
-        taskDetails();
         form.reset();
     });
 };
 
-const taskDetails = () => {
-    const taskItem = document.querySelector("#divTaskItem");
-    taskItem.addEventListener("click", function(e) {
-        console.log("test click: " + e.target.closest("#divTaskItem"));
-    });
-};
-
-export {addNewProjects, addNewTasks, taskDetails};
+export {addNewProjects, addNewTasks};
