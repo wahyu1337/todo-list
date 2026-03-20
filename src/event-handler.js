@@ -2,6 +2,7 @@
 import { modalNewProjects, addListProject, modalNewTasks, mainProjectTasks } from "./dom.js";
 import { addProjects, addTasks, projects } from "./state.js";
 import { logsMessage } from "./logs.js";
+import { setPriorityColor } from "./utils.js";
 
 // event listener for new project (sidebar)
 const addNewProjects = () => {
@@ -90,14 +91,14 @@ const newTasksBox = () => {
         const dueDateValue = document.querySelector("#dueDate").value;
         const priorityValue = document.querySelector("#priority").value;
         const notesValue = document.querySelector("#notes").value;
-        mainProjectTasks(titleValue, descriptionValue, dueDateValue);
+        mainProjectTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
         // set elements dom that been render.
         const titleElement = document.querySelectorAll(".taskTitle");
         const descriptionElement = document.querySelectorAll(".taskDescription");
         const dueDateElement = document.querySelectorAll(".taskDueDate");
         addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
-
         // ----------------------------------------------
+        // logs message after submit.
         logsMessage(`New Task Added
 Title: ${titleValue},
 Description: ${descriptionValue},
@@ -107,26 +108,7 @@ Notes: ${notesValue}
                 `);                
         // --------------------------------------------------        
         // change color text depend on the priority
-        if (priorityValue === "p0") {
-            // priority condition
-            // HIGH
-            titleElement[titleElement.length - 1].style.color = "red";
-            descriptionElement[descriptionElement.length - 1].style.color = "red";
-            dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
-            dueDateElement[dueDateElement.length - 1].style.color = "red";
-        } else if (priorityValue === "p1")  {
-            // NORMAL
-            titleElement[titleElement.length - 1].style.color = "rgb(201, 201, 67)";
-            descriptionElement[descriptionElement.length - 1].style.color = "rgb(201, 201, 67)";
-            dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
-            dueDateElement[dueDateElement.length - 1].style.color = "rgb(201, 201, 67)";
-        } else {
-            // black
-            titleElement[titleElement.length - 1].style.color = "black";
-            descriptionElement[descriptionElement.length - 1].style.color = "black";
-            dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
-            dueDateElement[dueDateElement.length - 1].style.color = "black";   
-        }
+       setPriorityColor(priorityValue, titleElement[titleElement.length - 1], descriptionElement[descriptionElement.length - 1], dueDateElement[dueDateElement.length - 1], dueDateValue[dueDateValue.length - 1]);
         form.reset();
     });
 };

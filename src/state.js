@@ -1,7 +1,7 @@
 // current state data
 import { Project } from "./classes/project.js";
 import { Todo } from "./classes/todo.js";
-import { logsMessage, logsProject } from "./logs.js";
+import { logsMessage } from "./logs.js";
 
 const projects = [];
 const tasks = [];
