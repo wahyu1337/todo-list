@@ -97,6 +97,9 @@ const newTasksBox = () => {
         const dueDateElement = document.querySelectorAll(".taskDueDate");
         addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
 
+        console.log(titleElement);
+        logsMessage(titleElement);
+
         // ----------------------------------------------
         logsMessage(`New Task Added
 Title: ${titleValue},
@@ -110,10 +113,22 @@ Notes: ${notesValue}
         if (priorityValue === "p0") {
             // priority condition
             // HIGH
-            titleElement.at(-1).style.color = "red";
-            descriptionElement.style.color = "red";
-            dueDateElement.textContent = `Due Date: ${dueDateValue}`;
-            dueDateElement.style.color = "red";
+            titleElement[titleElement.length - 1].style.color = "red";
+            descriptionElement[descriptionElement.length - 1].style.color = "red";
+            dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
+            dueDateElement[dueDateElement.length - 1].style.color = "red";
+        } else if (priorityValue === "p1")  {
+            // NORMAL
+            titleElement[titleElement.length - 1].style.color = "rgb(201, 201, 67)";
+            descriptionElement[descriptionElement.length - 1].style.color = "rgb(201, 201, 67)";
+            dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
+            dueDateElement[dueDateElement.length - 1].style.color = "rgb(201, 201, 67)";
+        } else {
+            // black
+            titleElement[titleElement.length - 1].style.color = "black";
+            descriptionElement[descriptionElement.length - 1].style.color = "black";
+            dueDateElement[dueDateElement.length - 1].textContent = `Due Date: ${dueDateValue}`;
+            dueDateElement[dueDateElement.length - 1].style.color = "black";   
         }
         taskDetails();
         form.reset();
@@ -122,7 +137,6 @@ Notes: ${notesValue}
 
 const taskDetails = () => {
     const taskItem = document.querySelector("#divTaskItem");
-
     taskItem.addEventListener("click", function(e) {
         console.log("test click: " + e.target.closest("#divTaskItem"));
     });

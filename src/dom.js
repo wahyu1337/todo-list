@@ -125,7 +125,7 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate) => {
     deleteBtn.classList.add("bi");
     deleteBtn.classList.add("bi-trash");
     const taskTitle = document.createElement("h3");
-    taskTitle.id = "taskTitle";
+    // taskTitle.id = "taskTitle";
     taskTitle.classList.add("taskTitle");
     taskTitle.textContent = titleValue;
     const taskDescription = document.createElement("p");
