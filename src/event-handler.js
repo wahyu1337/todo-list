@@ -1,7 +1,8 @@
 // load add project modal
-import { modalNewProjects, addListProject, modalNewTasks, mainProjectTasks } from "./dom.js";
-import { addProjects, addTasks, projects } from "./state.js";
+import { modalNewProjects, addListProject, modalNewTasks, mainProjectTasks, renderProjectView } from "./dom.js";
+import { addProjects, projects, getActiveProject, setActiveProject } from "./state.js";
 import { logsMessage } from "./logs.js";
+import { setPriorityColor } from "./utils.js";
 
 // event listener for new project (sidebar)
 const addNewProjects = () => {
@@ -23,13 +24,11 @@ const addNewTasks = () => {
     // main project add tasks
     const divAddTask = document.querySelector("#divAddTask");
     divAddTask.addEventListener("click", function(e) {
-        if (e.target.closest("#divAddTask") !== null) {
-            modalNewTasks();
-            newTasksBox();
-            logsMessage(e.target + "clicked");
-        } else {
-            logsMessage(console.error())
-        }
+        // The button is only visible when a project is active,
+        // so no extra check is strictly needed, but it's good practice.
+        modalNewTasks();
+        newTasksBox();
+        logsMessage("Add task button clicked");
     });
 };
 
@@ -57,6 +56,11 @@ const newProjectsBox = () => {
         if (projectName !== "") {
             addProjects(projectName);
             addListProject(projects);
+            // If this is the first project, set it as active and render it.
+            if (projects.length === 1) {
+                setActiveProject(projects[0]);
+                renderProjectView(projects[0]);
+            }
             logsMessage("New project added!");
             alert("Projects added!");
             form.reset();
@@ -84,48 +88,37 @@ const newTasksBox = () => {
     btnSubmit.addEventListener("click", function(e) {
         // prevent default behavior
         e.preventDefault();
+
+        const activeProject = getActiveProject();
+        if (!activeProject) {
+            alert("Cannot add task. No project is selected.");
+            overlay.remove();
+            return;
+        }
+
         // get each task form value
         const titleValue = document.querySelector("#title").value;
         const descriptionValue = document.querySelector("#description").value;
         const dueDateValue = document.querySelector("#dueDate").value;
         const priorityValue = document.querySelector("#priority").value;
         const notesValue = document.querySelector("#notes").value;
-        mainProjectTasks(titleValue, descriptionValue, dueDateValue);
+
+        activeProject.newTask(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
+        mainProjectTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
+
         // set elements dom that been render.
         const titleElement = document.querySelectorAll(".taskTitle");
         const descriptionElement = document.querySelectorAll(".taskDescription");
         const dueDateElement = document.querySelectorAll(".taskDueDate");
-        addTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
-
         // ----------------------------------------------
-        logsMessage(`New Task Added
-Title: ${titleValue},
-Description: ${descriptionValue},
-Due Date: ${dueDateValue},
-Priority Level: ${priorityValue},
-Notes: ${notesValue}
-                `);                
+        // logs message after submit.
+        logsMessage(`New Task Added to ${activeProject.title}: ${titleValue}`);
         // --------------------------------------------------        
         // change color text depend on the priority
-        if (priorityValue === "p0") {
-            // priority condition
-            // HIGH
-            titleElement.at(-1).style.color = "red";
-            descriptionElement.style.color = "red";
-            dueDateElement.textContent = `Due Date: ${dueDateValue}`;
-            dueDateElement.style.color = "red";
-        }
-        taskDetails();
+       setPriorityColor(priorityValue, titleElement[titleElement.length - 1], descriptionElement[descriptionElement.length - 1], dueDateElement[dueDateElement.length - 1], dueDateValue);
         form.reset();
+        overlay.remove();
     });
 };
 
-const taskDetails = () => {
-    const taskItem = document.querySelector("#divTaskItem");
-
-    taskItem.addEventListener("click", function(e) {
-        console.log("test click: " + e.target.closest("#divTaskItem"));
-    });
-};
-
-export {addNewProjects, addNewTasks, taskDetails};
+export {addNewProjects, addNewTasks};

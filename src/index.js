@@ -1,10 +1,10 @@
 // import module
 import {renderHeader, renderSidebar, renderMainContent} from "./dom.js";
 import style from "./styles/style.css";
-import { addNewProjects, addNewTasks, taskDetails } from "./event-handler.js";
+import { addNewProjects, addNewTasks } from "./event-handler.js";
 import {format, compareAsc} from "date-fns";
 import { logsMessage } from "./logs.js";
-import { addProjects, addTasks } from "./state.js";
+import { addProjects } from "./state.js";
 
 renderHeader();
 renderSidebar();

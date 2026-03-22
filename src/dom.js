@@ -1,6 +1,8 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
-import {projects} from "./state.js"
 import {format, compareAsc} from "date-fns";
+import { setActiveProject } from "./state.js";
+import { logsMessage } from "./logs.js";
+import { setPriorityColor } from "./utils.js";
 
 const renderHeader = () => {
     // DOM structure
@@ -69,7 +71,12 @@ const addListProject = (projects) => {
         const li = document.createElement("li");
         // make list into project title's name
         li.textContent = project.title;
-        
+
+        li.addEventListener("click", () => {
+            setActiveProject(project);
+            renderProjectView(project);
+        });
+
         // append
         divList.appendChild(li);    
     });
@@ -81,6 +88,7 @@ const renderMainContent = () => {
     mainTitle(mainContentElement);
     mainProjectContent(mainContentElement);
     addNewTasks(mainContentElement);
+    document.querySelector("#divAddTask").style.display = "none";
 }
 
 const mainTitle = (parentElement) => {
@@ -89,7 +97,7 @@ const mainTitle = (parentElement) => {
         title.id = "main-title";
     // main content title 
     const titleText = document.createElement("h1");
-    titleText.textContent = "PROJECT";
+    titleText.textContent = "Select a Project";
 
     // append
     title.appendChild(titleText);
@@ -106,37 +114,51 @@ const mainProjectContent = (parentElement) => {
 
 }
 
-const mainProjectTasks = (titleValue, descriptionValue, dueDate) => {
+const renderProjectView = (project) => {
+    const mainTitle = document.querySelector("#main-title h1");
+    const mainProjectContent = document.querySelector("#main-project");
+    const addTaskDiv = document.querySelector("#divAddTask");
+
+    mainTitle.textContent = project.title;
+    mainProjectContent.innerHTML = ""; // Clear tasks
+
+    project.detail.forEach(task => {
+        mainProjectTasks(task.title, task.description, task.dueDate, task.priority, task.notes);
+    });
+
+    addTaskDiv.style.display = "flex"; // Show add task button
+}
+
+const mainProjectTasks = (titleValue, descriptionValue, dueDate, priorityValue = "", notesValue = "") => {
     // main parent
     const mainProject = document.querySelector("#main-project");
 
     // sub parent
     const divTaskItem = document.createElement("div");
-    divTaskItem.id = "divTaskItem";
+    divTaskItem.classList.add("divTaskItem");
     // element
     const divEditDelete = document.createElement("div");
-    divEditDelete.id = "edit-delete";
+    divEditDelete.classList.add("edit-delete");
     const editBtn = document.createElement("i");
-    editBtn.id = "edtBtn";
+    editBtn.classList.add("edtBtn");
     editBtn.classList.add("bi");
     editBtn.classList.add("bi-pencil-square");
     const deleteBtn = document.createElement("i");
-    deleteBtn.id = "deleteTasks"
+    deleteBtn.classList.add("deleteTasks");
     deleteBtn.classList.add("bi");
     deleteBtn.classList.add("bi-trash");
-    const taskTitle = document.createElement("h3");
-    taskTitle.id = "taskTitle";
+    let taskTitle = document.createElement("h3");
+    // taskTitle.id = "taskTitle";
     taskTitle.classList.add("taskTitle");
     taskTitle.textContent = titleValue;
-    const taskDescription = document.createElement("p");
+    let taskDescription = document.createElement("p");
     taskDescription.id = "taskDescription";
     taskDescription.classList.add("taskDescription");
     taskDescription.textContent = descriptionValue;
-    const taskDueDate = document.createElement("p");
+    let taskDueDate = document.createElement("p");
     taskDueDate.id = "taskDueDate";
     taskDueDate.classList.add("taskDueDate");
     taskDueDate.textContent = dueDate;
-
     const checkedButton = document.createElement('input');
     checkedButton.type = "checkbox";
     // append element to their sub parent
@@ -148,6 +170,65 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate) => {
     divTaskItem.appendChild(taskDueDate);
     divTaskItem.appendChild(checkedButton);
 
+    // fetch the current task data & for edit 
+    let currentTitle = titleValue;
+    let currentDescription = descriptionValue;
+    let currentDueDate = dueDate;
+    let currentPriority = priorityValue;
+    let currentNotes = notesValue;
+
+    // listener for delete button 
+    deleteBtn.addEventListener("click", function() {
+        deleteBtn.parentElement.parentElement.remove();
+        logsMessage(`deleting ${taskTitle.textContent}`);
+    });
+
+    // listener for edit button
+    editBtn.addEventListener("click", function() {
+        modalNewTasks();
+        const btnClose = document.querySelector("#btn-close");
+        const overlayTasks = document.querySelector("#overlayTasks")
+        // listener for btn close
+        btnClose.addEventListener("click", function() {
+            overlayTasks.remove();
+        });
+
+        document.querySelector("#title").value = currentTitle;
+        document.querySelector("#description").value = currentDescription;
+        document.querySelector("#dueDate").value = currentDueDate; 
+        document.querySelector("#priority").value = currentPriority;
+        document.querySelector("#notes").value = currentNotes;
+
+        // submit for data changes
+        const btnSubmit = document.querySelector("#btn-submit");
+        btnSubmit.addEventListener("click", function (e) {
+            // prevent default behavior
+            e.preventDefault();
+            // re-render the text content after get some changes.
+            currentTitle = document.querySelector("#title").value;
+            currentDescription = document.querySelector("#description").value;
+            currentDueDate = document.querySelector("#dueDate").value;
+            currentPriority = document.querySelector("#priority").value
+            currentNotes = document.querySelector("#notes").value;
+
+            // re-change the content in webpage.
+            taskTitle.textContent = currentTitle;
+            taskDescription.textContent = currentDescription;
+            taskDueDate.textContent = currentDueDate;
+
+
+            // priority color conditional
+            setPriorityColor(currentPriority, taskTitle, taskDescription, taskDueDate, currentDueDate);
+
+            // logs the message after submit
+            logsMessage(`New Task Added
+Title: ${currentTitle},
+Description: ${currentDescription},
+Due Date: ${currentDueDate},
+Priority Level: ${currentPriority},
+Notes: ${currentNotes}`);       
+        });
+    });
     // appen sub parent to  main parent
     mainProject.appendChild(divTaskItem);
 }
@@ -324,4 +405,4 @@ const modalNewTasks = () => {
 }
 
 // export
-export {renderHeader, renderSidebar, addListProject, renderMainContent, mainProjectTasks, modalNewProjects, modalNewTasks};
+export {renderHeader, renderSidebar, addListProject, renderMainContent, mainProjectTasks, modalNewProjects, modalNewTasks, renderProjectView};

@@ -1,23 +1,34 @@
 :root {
     --purple-medium: #5c3dbf;
     --purple-light: #714ceb;
+    --purple-pale: #e0d8ff;
     --dark-gray: #f0eded;
     --hover-dark-gray: #d4d4d4bb;
     --font-roboto: roboto;
     --font-sansSerif: sans-serif;
     --text-white: #e6e6e6;
     --h1-shadow: 2px 3px 4px rgba(10, 5, 3, 0.78);
+    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --normal-prio: rgb(190, 190, 85);
 }
 
 * {
     margin: 0;
     padding: 0;
-    font-family:  monospace, roboto, sans-serif;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 li {
-    width: max-content;
+    width: 100%;
     cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+li:hover {
+    background-color: var(--hover-dark-gray);
 }
 
 .bi {
@@ -31,6 +42,8 @@ li {
 
 button {
     border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.1s;
 }
 
 .h1-shadow {
@@ -40,8 +53,10 @@ button {
 #container {
     display: grid;
     height: 100vh;
+    height: 100dvh; /* Better for mobile browsers */
     grid-template-columns: 1fr;
-    grid-template-rows: 100px 1fr;
+    grid-template-rows: 80px 1fr;
+    overflow: hidden;
 }
 
 #header {
@@ -49,23 +64,29 @@ button {
     justify-content: center;
     align-items: center;
     background-color: var(--purple-medium);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 10;
 }
 
 #header h1 {
     color: var(--text-white);
+    font-size: 1.8rem;
 }
 
 #content {
     display: grid;
     grid-template-columns: minmax(max-content, 300px) 1fr;
+    height: 100%;
+    overflow: hidden;
 }
 
 #sidebar {
     display: flex;
     flex-direction: column;
-    flex: 1;
-    background-color: var(--dark-gray);
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
     padding: 25px;
+    overflow-y: auto;
 }
 
 #sidebar-project {
@@ -93,105 +114,149 @@ button {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    margin-top: 100px;
+    margin-top: 40px;
+    gap: 10px;
 }
 
-#sidebar-lsit-project label {
-    text-align: center;
+#sidebar-list-project p {
+    font-weight: bold;
+    color: #666;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
 }
 
-@media (max-width: 480px)  {
-    #sidebar-list-project {
-        justify-content: flex-start;
-    }
+#list-project {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 #main-content {
     display: grid;
-    grid-template-rows: 100px 1fr 100px;
-    padding: 60px;
-    gap: 12px;
+    grid-template-rows: min-content 1fr min-content;
+    padding: 30px;
+    gap: 20px;
+    background-color: #f8f9fa;
+    overflow-y: auto;
 }
 
 #main-title {
     display: flex;
     align-items: center;
-    border:solid 2px blue;
+    margin-bottom: 10px;
 }
 
 #main-title h1 {
-    text-shadow: 3px 5px 4px rgba(41,18,11,0.18);
+    color: #333;
+    font-size: 2rem;
+    border-bottom: 3px solid var(--purple-light);
+    padding-bottom: 5px;
 }
 
 #main-project {
     display: flex;
     flex-direction: row;
-    gap: 12px;
+    flex-wrap: wrap; /* Penting agar task turun ke bawah */
+    gap: 20px;
+    align-content: flex-start;
 }
 
-#divTaskItem {
+.divTaskItem {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    width: 225px;
+    width: 250px;
+    flex-grow: 1;
+    max-width: 300px;
     max-height: max-content;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    box-shadow: var(--card-shadow);
+    transition: all 0.2s ease;
+    padding-bottom: 15px;
 }
 
-#edit-delete {
+.divTaskItem:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--card-hover);
+}
+
+.edit-delete {
     display: flex;
-    width: inherit;
-    border-radius: 8px;
+    width: 100%;
+    border-radius: 12px 12px 0 0;
     justify-content: flex-end;
-    margin-bottom: 8px;
+    padding: 8px;
+    margin-bottom: 10px;
     background-color: var(--purple-medium);
+    gap: 8px;
 }
 
-#edit-delete i {
-    scale: 0.85;
+#edit-delete i, .edit-delete i {
+    font-size: 1rem;
     color: var(--text-white);
 }
 
-#edit-delete i:hover {
+.divTaskItem h3 {
+    padding: 0 15px;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.divTaskItem p {
+    padding: 0 15px;
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+}
+
+.divTaskItem input[type="checkbox"] {
+    margin: 10px 15px;
+    align-self: flex-start;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
-}
-
-#deleteTasks {
-    border: none;
-    scale: 0.9;
-}
-
-#divTaskItem p {
-    cursor: default;
-}
-
-#divTaskItem input {
-    margin-bottom: 15px;
 }
 
 #divAddTask {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: max-content;
-    height: max-content;
+    padding: 10px 20px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: var(--card-shadow);
+    cursor: pointer;
+    transition: 0.2s;
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
 }
 
 #divAddTask .bi-plus-lg {
-    font-size: 1.5rem;
-    color: var(--purple-light);
+    font-size: 1.2rem;
+    color: var(--purple-medium);
+    margin-right: 8px;
 }
 
 #divAddTask button {
     border: none;
-    background-color: none;
-    padding: 6px;
-    background-color: white;
+    background-color: transparent;
+    font-weight: bold;
+    color: var(--purple-medium);
+    font-size: 1rem;
 }
 
 #divAddTask:hover {
-    scale: 1.04;
+    transform: scale(1.05);
+    background-color: var(--purple-medium);
+}
+#divAddTask:hover .bi-plus-lg, 
+#divAddTask:hover button {
+    color: white;
 }
 
 /* POP UP MODAL */
@@ -211,20 +276,22 @@ button {
 #modal-box {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    height: 250px;
+    width: min(500px, 90%);
+    height: auto;
     border-radius: 14px;
-    background-color: #ffffffe8;
+    background-color: #fff;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 #modal-boxTasks {
     display: flex;
     flex-direction: column;
-    width: 450px;
+    width: min(550px, 90%);
     height: max-content;
+    max-height: 90vh;
+    overflow-y: auto;
     border-radius: 14px;
-    background-color: #ffffffe8;
+    background-color: #fff;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
@@ -245,13 +312,15 @@ button {
 }
 
 #form-inputTasks input, #form-inputTasks select{
-    width: 380px;
-    height: 30px;
-    padding: 6px;
+    width: 100%;
+    height: 40px;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 #divDueDate input, #divPriority select {
-    width: max-content;
+    width: 100%;
 }
 
 #divPriority select {
@@ -273,22 +342,93 @@ button {
 }
 
 #form-input input {
-    width: 400px;
-    padding: 6px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
 }
 
 #divTitle, #divDescription, #divDueDate, #divPriority, #divNotes {
     display: flex;
     flex-direction: column;
+    gap: 5px;
 }
 
 #btn-submit {
-    margin-top: 40px;
-    width: 120px;
+    margin-top: 20px;
+    width: 100%;
     align-self: center;
     color: white;
     border: none;
-    padding: 6px;
+    padding: 12px;
     background-color: var(--purple-medium);
+    font-weight: bold;
+    cursor: pointer;
+}
+#btn-submit:hover {
+    background-color: var(--purple-light);
 }
 
+/* --- RESPONSIVE / MOBILE VIEW --- */
+@media (max-width: 768px) {
+    #container {
+        grid-template-rows: 60px 1fr;
+    }
+    
+    #header h1 {
+        font-size: 1.4rem;
+    }
+
+    #content {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto 1fr;
+    }
+
+    #sidebar {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        border-right: none;
+        gap: 15px;
+        overflow-x: auto; /* Scroll samping jika menu banyak */
+    }
+
+    #sidebar-list-project {
+        margin-top: 0;
+        flex-direction: row;
+        align-items: center;
+    }
+    
+    #sidebar-list-project p {
+        display: none; /* Sembunyikan label "MY PROJECTS" di mobile */
+    }
+
+    #list-project {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    #list-project li {
+        white-space: nowrap;
+        background-color: #f0f0f0;
+        padding: 8px 15px;
+        border-radius: 20px;
+    }
+
+    #main-content {
+        padding: 15px;
+    }
+
+    #divAddTask {
+        bottom: 20px;
+        right: 20px;
+        padding: 8px 16px;
+    }
+
+    .divTaskItem {
+        width: 100%; /* Kartu jadi lebar penuh di HP */
+        max-width: none;
+    }
+}
