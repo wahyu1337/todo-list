@@ -4,7 +4,7 @@ import { Todo } from "./classes/todo.js";
 import { logsMessage } from "./logs.js";
 
 const projects = [];
-const tasks = [];
+let activeProject = null;
 
 const addProjects = (name) => {
     const project = new Project(name);
@@ -12,10 +12,15 @@ const addProjects = (name) => {
     logsMessage(projects);
 };
 
-const addTasks = (name, description, dueDate, priority, notes) => {
-    const task = new Todo(name, description, dueDate, priority, notes);
-    tasks.push(task);
-    logsMessage(tasks);
+const getActiveProject = () => {
+    return activeProject;
 };
 
-export {projects, tasks, addProjects, addTasks};
+const setActiveProject = (project) => {
+    activeProject = project;
+    if (project) {
+        logsMessage(`Active project set to: ${project.title}`);
+    }
+};
+
+export {projects, addProjects, getActiveProject, setActiveProject};

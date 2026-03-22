@@ -16,10 +16,10 @@ const setPriorityColor = (priority, titleE1, descriptionE1, dueDateE1, dueDateVa
         dueDateE1.style.color = "rgb(201, 201, 67)";
     } else {
         // black
-        titleE1.style.color = "black";
-        descriptionE1[descriptionE1.length - 1].style.color = "black";
-        dueDateE1.textContent = `Due Date: ${dueDateE1}`;
-        dueDateE1.style.color = "black";   
+        titleE1.style.color = "rgb(0,0,0)";
+        descriptionE1.style.color = "rgb(0,0,0)";
+        dueDateE1.textContent = `Due Date: ${dueDateValue}`;
+        dueDateE1.style.color = "rgb(0,0,0)";   
     }
 }
 
