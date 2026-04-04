@@ -1,6 +1,6 @@
 import "bootstrap-icons/font/bootstrap-icons.css";
 import {format, compareAsc} from "date-fns";
-import { setActiveProject } from "./state.js";
+import { setActiveProject, getActiveProject } from "./state.js";
 import { logsMessage } from "./logs.js";
 import { setPriorityColor } from "./utils.js";
 
@@ -10,8 +10,7 @@ const renderHeader = () => {
 
     // element header
     const titleHeader = document.createElement("h1");
-    titleHeader.classList.add("h1-shadow");
-    titleHeader.textContent = "TO-DO Application";
+    titleHeader.textContent = "TO-DO Applications";
 
     // append header
     header.appendChild(titleHeader);
@@ -161,14 +160,44 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate, priorityValue =
     taskDueDate.textContent = dueDate;
     const checkedButton = document.createElement('input');
     checkedButton.type = "checkbox";
-    // append element to their sub parent
+    checkedButton.classList.add("task-check-input");
+
+    // Wrapper for check + content
+    const taskContentWrapper = document.createElement("div");
+    taskContentWrapper.classList.add("task-content-wrapper");
+
+    // Custom check container
+    const checkContainer = document.createElement("div");
+    checkContainer.classList.add("check-container");
+    checkContainer.appendChild(checkedButton);
+
+    // Text content container
+    const textContainer = document.createElement("div");
+    textContainer.classList.add("task-text-container");
+    textContainer.appendChild(taskTitle);
+    textContainer.appendChild(taskDescription);
+
+    // append elements
+    taskContentWrapper.appendChild(checkContainer);
+    taskContentWrapper.appendChild(textContainer);
+
     divTaskItem.appendChild(divEditDelete);
         divEditDelete.appendChild(editBtn);
         divEditDelete.appendChild(deleteBtn);
-    divTaskItem.appendChild(taskTitle);
-    divTaskItem.appendChild(taskDescription);
+    divTaskItem.appendChild(taskContentWrapper);
     divTaskItem.appendChild(taskDueDate);
-    divTaskItem.appendChild(checkedButton);
+
+    // Set priority color on initial render
+    setPriorityColor(priorityValue, taskTitle, taskDescription, taskDueDate, dueDate);
+
+    // Toggle completion status
+    checkedButton.addEventListener("change", () => {
+        if (checkedButton.checked) {
+            divTaskItem.classList.add("task-completed");
+        } else {
+            divTaskItem.classList.remove("task-completed");
+        }
+    });
 
     // fetch the current task data & for edit 
     let currentTitle = titleValue;
@@ -179,6 +208,10 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate, priorityValue =
 
     // listener for delete button 
     deleteBtn.addEventListener("click", function() {
+        const activeProject = getActiveProject();
+        if (activeProject) {
+            activeProject.deleteTask(taskTitle.textContent);
+        }
         deleteBtn.parentElement.parentElement.remove();
         logsMessage(`deleting ${taskTitle.textContent}`);
     });
@@ -186,7 +219,7 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate, priorityValue =
     // listener for edit button
     editBtn.addEventListener("click", function() {
         modalNewTasks();
-        const btnClose = document.querySelector("#btn-close");
+        const btnClose = document.querySelector("#btn-close-task");
         const overlayTasks = document.querySelector("#overlayTasks")
         // listener for btn close
         btnClose.addEventListener("click", function() {
@@ -200,7 +233,7 @@ const mainProjectTasks = (titleValue, descriptionValue, dueDate, priorityValue =
         document.querySelector("#notes").value = currentNotes;
 
         // submit for data changes
-        const btnSubmit = document.querySelector("#btn-submit");
+        const btnSubmit = document.querySelector("#btn-submit-task");
         btnSubmit.addEventListener("click", function (e) {
             // prevent default behavior
             e.preventDefault();
@@ -256,6 +289,8 @@ const addNewTasks = (parentElement) => {
 
 // pop modal for add  projects
 const modalNewProjects = () => {
+    if (document.querySelector("#overlay")) return;
+
     const content = document.querySelector("#content");
     const overlay = document.createElement("div");
     overlay.id = "overlay";
@@ -271,9 +306,10 @@ const modalNewProjects = () => {
     formInput.id = "form-input";
     // btn close
     const btnClose = document.createElement("button");
-    btnClose.id = "btn-close";
+    btnClose.id = "btn-close-project";
+    btnClose.classList.add("btn-close-modal");
     btnClose.type = "button";
-    btnClose.textContent = "X";
+    btnClose.innerHTML = '<i class="bi bi-x-lg"></i>';
     // label
     const projectLabel = document.createElement("label");
     projectLabel.htmlFor = "project-name";
@@ -283,7 +319,8 @@ const modalNewProjects = () => {
     inputProjectName.required = true;
     inputProjectName.type = "text";
     const btnSubmit = document.createElement("button");
-    btnSubmit.id = "btn-submit";
+    btnSubmit.id = "btn-submit-project";
+    btnSubmit.classList.add("btn-submit-modal");
     btnSubmit.type = "submit";
     btnSubmit.textContent = "SUBMIT";
         // append 
@@ -295,6 +332,8 @@ const modalNewProjects = () => {
 }
 
 const modalNewTasks = () => {
+    if (document.querySelector("#overlayTasks")) return;
+
     // parent element to appending later
     const content = document.querySelector("#content");
     const overlay = document.createElement("div");
@@ -385,12 +424,14 @@ const modalNewTasks = () => {
     // button submit & close
     const btnClose = document.createElement("button");
     btnClose.type = "button";
-    btnClose.textContent = "X";
-    btnClose.id = "btn-close";
+    btnClose.innerHTML = '<i class="bi bi-x-lg"></i>';
+    btnClose.id = "btn-close-task";
+    btnClose.classList.add("btn-close-modal");
     const btnSubmit = document.createElement("button");
     btnSubmit.type = "submit";
     btnSubmit.textContent = "SUBMIT";
-    btnSubmit.id = "btn-submit";
+    btnSubmit.id = "btn-submit-task";
+    btnSubmit.classList.add("btn-submit-modal");
 
     // append from parent
     modalBox.appendChild(taskForm);

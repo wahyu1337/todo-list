@@ -1,434 +1,524 @@
 :root {
-    --purple-medium: #5c3dbf;
-    --purple-light: #714ceb;
-    --purple-pale: #e0d8ff;
-    --dark-gray: #f0eded;
-    --hover-dark-gray: #d4d4d4bb;
-    --font-roboto: roboto;
-    --font-sansSerif: sans-serif;
-    --text-white: #e6e6e6;
-    --h1-shadow: 2px 3px 4px rgba(10, 5, 3, 0.78);
-    --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-    --card-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    --normal-prio: rgb(190, 190, 85);
+    --bg-dark: #050505;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --accent-purple: #8b5cf6;
+    --accent-cyan: #06b6d4;
+    --text-primary: #ffffff;
+    --text-secondary: rgba(255, 255, 255, 0.6);
+    --font-main: 'Plus Jakarta Sans', sans-serif;
+    
+    --purple-medium: #8b5cf6;
+    --purple-light: #a78bfa;
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --card-hover: 0 8px 32px 0 rgba(139, 92, 246, 0.2);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-main);
 }
 
-li {
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+/* Background Decoration */
+.background-decor {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 6px;
-    transition: background 0.2s;
-}
-li:hover {
-    background-color: var(--hover-dark-gray);
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
 }
 
-.bi {
-    color: var(--purple-medium);
-    font-size: 1.3rem;
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 20s infinite alternate;
 }
 
-.bi:hover {
-    cursor: pointer;
+.orb-1 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-purple);
+    top: -100px;
+    right: -100px;
 }
 
-button {
-    border-radius: 6px;
-    cursor: pointer;
-    transition: transform 0.1s;
+.orb-2 {
+    width: 300px;
+    height: 300px;
+    background: var(--accent-cyan);
+    bottom: -50px;
+    left: -50px;
+    animation-delay: -5s;
 }
 
-.h1-shadow {
-    text-shadow: var(--h1-shadow);
+.orb-3 {
+    width: 250px;
+    height: 250px;
+    background: #f43f5e;
+    top: 40%;
+    left: 20%;
+    animation-delay: -10s;
+}
+
+@keyframes float {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
 }
 
 #container {
     display: grid;
     height: 100vh;
-    height: 100dvh; /* Better for mobile browsers */
+    height: 100dvh;
     grid-template-columns: 1fr;
     grid-template-rows: 80px 1fr;
-    overflow: hidden;
+    background: transparent;
 }
 
 #header {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: var(--purple-medium);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--glass-border);
     z-index: 10;
 }
 
 #header h1 {
-    color: var(--text-white);
+    color: var(--text-primary);
     font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 #content {
     display: grid;
-    grid-template-columns: minmax(max-content, 300px) 1fr;
+    grid-template-columns: 280px 1fr;
     height: 100%;
     overflow: hidden;
 }
 
 #sidebar {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(20px);
+    border-right: 1px solid var(--glass-border);
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
-    border-right: 1px solid #e0e0e0;
-    padding: 25px;
-    overflow-y: auto;
 }
 
 #sidebar-project {
     display: flex;
-    flex-direction: row;
-    gap: 6px;
-    width: max-content;
-    flex-shrink: 1;
-    transition: 0.15s;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--accent-purple);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
 }
 
 #sidebar-project:hover {
-    scale: 1.05;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.5);
 }
 
 #btn-add-project {
+    background: transparent;
     border: none;
-    color: var(--purple-medium);
-    font-size: 1.2rem;
+    color: white;
     font-weight: 600;
-    font-family: var(--font-roboto);
+    font-size: 0.95rem;
+}
+
+#sidebar-project i {
+    color: white;
+    font-size: 1.2rem;
 }
 
 #sidebar-list-project {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
     margin-top: 40px;
-    gap: 10px;
 }
 
 #sidebar-list-project p {
-    font-weight: bold;
-    color: #666;
-    margin-bottom: 10px;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 1.5px;
+    margin-bottom: 15px;
 }
 
 #list-project {
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 8px;
+}
+
+#list-project li {
+    padding: 10px 16px;
+    border-radius: 10px;
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+}
+
+#list-project li:hover {
+    background: var(--glass-bg);
+    color: var(--text-primary);
+    transform: translateX(5px);
 }
 
 #main-content {
-    display: grid;
-    grid-template-rows: min-content 1fr min-content;
-    padding: 30px;
-    gap: 20px;
-    background-color: #f8f9fa;
+    padding: 40px;
+    background: transparent;
     overflow-y: auto;
 }
 
-#main-title {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
 #main-title h1 {
-    color: #333;
-    font-size: 2rem;
-    border-bottom: 3px solid var(--purple-light);
-    padding-bottom: 5px;
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: 30px;
+    border: none;
 }
 
 #main-project {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap; /* Penting agar task turun ke bawah */
-    gap: 20px;
-    align-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
 }
 
 .divTaskItem {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    width: 250px;
-    flex-grow: 1;
-    max-width: 300px;
-    max-height: max-content;
-    background-color: white;
-    border-radius: 12px;
-    box-shadow: var(--card-shadow);
-    transition: all 0.2s ease;
-    padding-bottom: 15px;
 }
 
 .divTaskItem:hover {
-    transform: translateY(-5px);
+    transform: translateY(-8px);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
     box-shadow: var(--card-hover);
 }
 
 .edit-delete {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px 16px;
     display: flex;
-    width: 100%;
-    border-radius: 12px 12px 0 0;
     justify-content: flex-end;
-    padding: 8px;
-    margin-bottom: 10px;
-    background-color: var(--purple-medium);
-    gap: 8px;
+    gap: 12px;
+    border-bottom: 1px solid var(--glass-border);
 }
 
-#edit-delete i, .edit-delete i {
+.edit-delete i {
     font-size: 1rem;
-    color: var(--text-white);
+    color: var(--text-secondary);
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.edit-delete i:hover {
+    color: var(--text-primary);
+    transform: scale(1.1);
+}
+
+.task-content-wrapper {
+    display: flex;
+    padding: 20px;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.check-container {
+    position: relative;
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.task-check-input {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--glass-border) !important;
+    border-radius: 50% !important;
+    background: transparent !important;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.task-check-input:checked {
+    background: var(--accent-purple) !important;
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 0 10px rgba(139, 92, 246, 0.4);
+}
+
+.task-check-input:checked::after {
+    content: '\F633'; /* Bootstrap check icon */
+    font-family: "bootstrap-icons";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.task-text-container {
+    flex-grow: 1;
 }
 
 .divTaskItem h3 {
-    padding: 0 15px;
-    margin-bottom: 5px;
-    color: #333;
+    padding: 0;
+    margin-bottom: 6px;
+    font-size: 1.15rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
 }
 
 .divTaskItem p {
-    padding: 0 15px;
-    color: #666;
+    padding: 0;
+    color: var(--text-secondary);
     font-size: 0.9rem;
-    margin-bottom: 8px;
-    word-wrap: break-word;
+    line-height: 1.5;
+    transition: all 0.3s ease;
 }
 
-.divTaskItem input[type="checkbox"] {
-    margin: 10px 15px;
-    align-self: flex-start;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
+.divTaskItem .taskDueDate {
+    padding: 0 20px 20px;
+    margin: 0;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--accent-cyan);
+    opacity: 0.8;
+}
+
+/* Completion State */
+.task-completed {
+    opacity: 0.6;
+}
+
+.task-completed .task-text-container h3,
+.task-completed .task-text-container p {
+    text-decoration: line-through;
+    color: var(--text-secondary);
+}
+
+.task-completed:hover {
+    transform: translateY(-2px);
+    opacity: 0.8;
+}
+
+/* Remove legacy placeholder */
+.divTaskItem::before {
+    display: none;
 }
 
 #divAddTask {
+    position: fixed;
+    bottom: 40px;
+    right: 40px;
+    background: var(--accent-purple);
+    padding: 16px 28px;
+    border-radius: 50px;
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4);
     display: flex;
     align-items: center;
-    justify-content: center;
-    width: max-content;
-    padding: 10px 20px;
-    background-color: white;
-    border-radius: 50px;
-    box-shadow: var(--card-shadow);
+    gap: 10px;
     cursor: pointer;
-    transition: 0.2s;
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-}
-
-#divAddTask .bi-plus-lg {
-    font-size: 1.2rem;
-    color: var(--purple-medium);
-    margin-right: 8px;
-}
-
-#divAddTask button {
-    border: none;
-    background-color: transparent;
-    font-weight: bold;
-    color: var(--purple-medium);
-    font-size: 1rem;
+    transition: all 0.3s ease;
+    z-index: 100;
 }
 
 #divAddTask:hover {
-    transform: scale(1.05);
-    background-color: var(--purple-medium);
-}
-#divAddTask:hover .bi-plus-lg, 
-#divAddTask:hover button {
-    color: white;
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 12px 30px rgba(139, 92, 246, 0.6);
 }
 
-/* POP UP MODAL */
+#divAddTask button {
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+#divAddTask i {
+    color: white;
+    font-size: 1.2rem;
+}
+
+/* Modal Styling */
 #overlay, #overlayTasks {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;    
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.404); /* Black background with opacity */
 }
 
-#modal-box {
-    display: flex;
-    flex-direction: column;
-    width: min(500px, 90%);
-    height: auto;
-    border-radius: 14px;
-    background-color: #fff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-}
-
-#modal-boxTasks {
-    display: flex;
-    flex-direction: column;
-    width: min(550px, 90%);
-    height: max-content;
+#modal-box, #modal-boxTasks {
+    background: #121212;
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    position: relative;
+    width: 90%;
+    max-width: 500px;
     max-height: 90vh;
     overflow-y: auto;
-    border-radius: 14px;
-    background-color: #fff;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
 }
 
 #form-input, #form-inputTasks {
+    padding: 48px 40px 40px; /* More top padding for the close button */
+    color: white;
     display: flex;
     flex-direction: column;
-    font-size: 1.2rem;
-    font-weight: 600;
-    font-family: var(--font-roboto);
-    padding: 24px;
-    gap: 4px;
+    gap: 20px; /* Spacing between form groups */
 }
+
 #form-inputTasks {
-    gap: 24px;
-    padding: 36px;
-    padding-top: 20px;
-    padding-bottom: 24px;
+    gap: 16px; /* Slightly tighter gap for the task form */
 }
 
-#form-inputTasks input, #form-inputTasks select{
-    width: 100%;
-    height: 40px;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-}
-
-#divDueDate input, #divPriority select {
-    width: 100%;
-}
-
-#divPriority select {
-    height: 40px;
-}
-
-#btn-close {
-    width: min-content;
-    border: none;
-    padding: 0;
-    background-color: #ffffff00;
-    color: rgba(0, 0, 0, 0.548);
-    align-self: flex-end;
-    font-size: 1.3rem;
-}
-
-#form-inputTasks #btn-submit {
-    margin-top: 0;
-}
-
-#form-input input {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+#form-input label, #form-inputTasks label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
 }
 
 #divTitle, #divDescription, #divDueDate, #divPriority, #divNotes {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
 }
 
-#btn-submit {
-    margin-top: 20px;
-    width: 100%;
-    align-self: center;
-    color: white;
-    border: none;
-    padding: 12px;
-    background-color: var(--purple-medium);
-    font-weight: bold;
+input, select, textarea {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid var(--glass-border) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 14px 18px !important; /* Slightly more padding for better feel */
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+input:focus, select:focus {
+    border-color: var(--accent-purple) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
+}
+
+.btn-submit-modal {
+    background: var(--accent-purple) !important;
+    border-radius: 14px !important;
+    padding: 16px !important;
+    font-weight: 700 !important;
+    font-size: 1rem !important;
+    margin-top: 15px !important;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+}
+
+.btn-submit-modal:hover {
+    background: var(--purple-light) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(139, 92, 246, 0.5);
+}
+
+.btn-close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
     cursor: pointer;
-}
-#btn-submit:hover {
-    background-color: var(--purple-light);
+    padding: 0;
+    z-index: 10;
 }
 
-/* --- RESPONSIVE / MOBILE VIEW --- */
+.btn-close-modal:hover {
+    color: white;
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.5);
+    transform: rotate(90deg);
+}
+
+/* --- RESPONSIVE --- */
 @media (max-width: 768px) {
-    #container {
-        grid-template-rows: 60px 1fr;
-    }
-    
-    #header h1 {
-        font-size: 1.4rem;
-    }
-
     #content {
         grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
-    }
-
-    #sidebar {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 20px;
-        border-bottom: 1px solid #ddd;
-        border-right: none;
-        gap: 15px;
-        overflow-x: auto; /* Scroll samping jika menu banyak */
-    }
-
-    #sidebar-list-project {
-        margin-top: 0;
-        flex-direction: row;
-        align-items: center;
     }
     
-    #sidebar-list-project p {
-        display: none; /* Sembunyikan label "MY PROJECTS" di mobile */
-    }
-
-    #list-project {
+    #sidebar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: auto;
         flex-direction: row;
-        gap: 10px;
+        padding: 15px;
+        z-index: 1000;
+        border-top: 1px solid var(--glass-border);
+        border-right: none;
     }
 
-    #list-project li {
-        white-space: nowrap;
-        background-color: #f0f0f0;
-        padding: 8px 15px;
-        border-radius: 20px;
+    #sidebar-list-project, #sidebar-list-project p {
+        display: none;
     }
 
     #main-content {
-        padding: 15px;
+        padding: 20px;
+        padding-bottom: 100px;
     }
 
     #divAddTask {
-        bottom: 20px;
+        bottom: 90px;
         right: 20px;
-        padding: 8px 16px;
-    }
-
-    .divTaskItem {
-        width: 100%; /* Kartu jadi lebar penuh di HP */
-        max-width: none;
     }
 }

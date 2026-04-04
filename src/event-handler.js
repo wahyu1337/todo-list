@@ -36,8 +36,8 @@ const newProjectsBox = () => {
     // sidebar project's dom
     const form = document.querySelector("#form-input");
     const overlay = document.querySelector("#overlay");
-    const btnClose = document.querySelector("#btn-close");
-    const btnSubmit = document.querySelector("#btn-submit");
+    const btnClose = document.querySelector("#btn-close-project");
+    const btnSubmit = document.querySelector("#btn-submit-project");
 
     // event listener
     btnClose.addEventListener("click", function() {
@@ -73,8 +73,8 @@ const newProjectsBox = () => {
 const newTasksBox = () => {
     // overlay and button close logic
     const overlay = document.querySelector("#overlayTasks");
-    const btnClose = document.querySelector("#btn-close");
-    const btnSubmit = document.querySelector("#btn-submit");
+    const btnClose = document.querySelector("#btn-close-task");
+    const btnSubmit = document.querySelector("#btn-submit-task");
      // form manipulation for resetting after submit
     const form = document.querySelector("#form-inputTasks");
 
@@ -106,16 +106,9 @@ const newTasksBox = () => {
         activeProject.newTask(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
         mainProjectTasks(titleValue, descriptionValue, dueDateValue, priorityValue, notesValue);
 
-        // set elements dom that been render.
-        const titleElement = document.querySelectorAll(".taskTitle");
-        const descriptionElement = document.querySelectorAll(".taskDescription");
-        const dueDateElement = document.querySelectorAll(".taskDueDate");
-        // ----------------------------------------------
         // logs message after submit.
         logsMessage(`New Task Added to ${activeProject.title}: ${titleValue}`);
         // --------------------------------------------------        
-        // change color text depend on the priority
-       setPriorityColor(priorityValue, titleElement[titleElement.length - 1], descriptionElement[descriptionElement.length - 1], dueDateElement[dueDateElement.length - 1], dueDateValue);
         form.reset();
         overlay.remove();
     });
