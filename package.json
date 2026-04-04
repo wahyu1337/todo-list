@@ -8,7 +8,7 @@
     "test": "To-Do List TEST",
     "start": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "deploy": "git subtree push --prefix dist origin gh-pages"
+    "deploy": "gh-pages -d dist"
   },
   "author": "Ways",
   "license": "ISC",
